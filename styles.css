@@ -1,0 +1,35 @@
+
+#puzzle {
+    width: 450px;
+    height: 450px;
+  }
+  #puzzle input {
+    width: 50px;
+    height: 50px;
+    box-sizing: border-box;
+    border-spacing: 0;
+    border: 1px solid grey;
+  }
+  .odd-section {
+    background-color: lightgrey;
+  }
+  #solve-button {
+    background-color: coral;
+    color: white;
+    padding: 10px;
+    margin: 20px;
+    border-radius: 10px;
+    border: none;
+    cursor: pointer;
+  }
+  #solve-button:hover {
+    background-color: #c9ba4ce7;
+  }
+
+.wrapper
+{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 5%;
+}
