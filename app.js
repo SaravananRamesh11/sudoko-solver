@@ -3,12 +3,14 @@ const solveButton = document.querySelector("#solve-button");
 const solutionDisplay = document.querySelector("#solution");
 const squares = 81;
 let submission = [];
+
 // Create input elements for the puzzle board
 for (let i = 0; i < squares; i++) {
     const inputElement = document.createElement("input");
     inputElement.setAttribute("type", "number");
     inputElement.setAttribute("min", 1);
     inputElement.setAttribute("max", 9);
+
     // Add odd-section class to input elements that belong to a certain section
     if (
         ((i % 9 === 0 || i % 9 == 1 || i % 9 == 2) && i < 21) ||
@@ -19,21 +21,24 @@ for (let i = 0; i < squares; i++) {
     ) {
         inputElement.classList.add("odd-section");
     }
+
     puzzleBoard.appendChild(inputElement);
 }
+
 // Function to join input values into a submission array
 const joinValues = () => {
     const inputs = document.querySelectorAll("input");
-    submission.length = 0; // clear previous values
+    submission.length = 0; // Clear previous values
     inputs.forEach((input) => {
         if (input.value) {
-            submission.push(input.value);
+            submission.push(parseInt(input.value)); // Push number
         } else {
-            submission.push(".");
+            submission.push(0); // Push 0 for empty cells
         }
     });
     console.log(submission);
 };
+
 // Function to populate input values based on the solution
 const populateValues = (isSolvable, solution) => {
     const inputs = document.querySelectorAll("input");
@@ -46,10 +51,11 @@ const populateValues = (isSolvable, solution) => {
         solutionDisplay.innerHTML = "This is not solvable";
     }
 };
+
 // Function to send a POST request to the server to solve the puzzle
 const solve = () => {
     joinValues();
-    const data = { numbers: submission.join("") };
+    const data = { numbers: submission }; // Send as array, not string
     console.log("data", data);
     fetch("https://sudoko-solver-tau.vercel.app/solve", {
         method: "POST",
@@ -57,14 +63,17 @@ const solve = () => {
             "Content-Type": "application/json",
             Accept: "application/json",
         },
-        body: JSON.stringify(data),
+        body: JSON.stringify(data), // Send JSON string
     })
         .then((response) => response.json())
         .then((data) => {
             console.log(data);
-            populateValues(data.solvable, data.solution);
+            populateValues(true, data.solution);
         })
-        .catch((error) => console.error("Error:", error));
+        .catch((error) => {
+            console.error("Error:", error);
+            solutionDisplay.innerHTML = "Error solving the puzzle.";
+        });
 };
 
 solveButton.addEventListener("click", solve);

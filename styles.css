@@ -10,9 +10,6 @@
     border-spacing: 0;
     border: 1px solid grey;
   }
-  .odd-section {
-    background-color: lightgrey;
-  }
   #solve-button {
     background-color: coral;
     color: white;
