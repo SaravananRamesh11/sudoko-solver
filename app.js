@@ -57,7 +57,7 @@ const solve = () => {
     joinValues();
     const data = { numbers: submission }; // Send as array, not string
     console.log("data", data);
-    fetch("https://sudoko-solver-tau.vercel.app/solve", {
+    fetch("https://sudoko-solver-yf4d.onrender.com/solve", {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
