@@ -51,7 +51,7 @@ const solve = () => {
     joinValues();
     const data = { numbers: submission.join("") };
     console.log("data", data);
-    fetch("http://localhost:8000/solve", {
+    fetch("https://sudoko-solver-tau.vercel.app/solve", {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
